@@ -93,6 +93,47 @@ The lesson we learn from observing the annualized excess returns is the longer y
       <td>7.0471%</td>
   </tr>
 </table>
+<h1>Python Codes</h1>
+<code>import pandas as pd</code><br>
+<code>import numpy as np</code><br>
+<code>import matplotlib.pyplot as plt</code><br>
+<code>df = pd.read_csv("GSPC.csv", parse_dates=["Date"], index_col="Date")</code><br>
+<code>dailyr=df["Close"].ffill().pct_change()</code><br>
+<code>dailyr=dailyr.dropna()</code><br>
+<code># Def geometric average as gemean</code><br>
+<code>def gemean(rate):</code><br>
+<code>a = 1+np.array(rate)</code><br>
+<code>return np.prod(a)**(1/len(a))-1</code><br>
+<code>monthlyr = df["Close"].resample('M').ffill().pct_change()</code><br>
+<code>monthlyr=monthlyr.dropna()</code><br>
+<code>yearlyr = df["Close"].resample('Y').ffill().pct_change()</code><br/>
+<code>yearlyr=yearlyr.dropna()</code><br>
+<code>fyearlyr = df["Close"].resample('5Y').ffill().pct_change()</code><br>
+<code>fyearlyr=fyearlyr.dropna()</code><br>
+<code># Import the risk free excel sheet</code><br>
+<code>rf = pd.read_excel("rf.xlsx", parse_dates=['Date'], index_col="Date")</code><br>
+<code>rf = pd.DataFrame(rf)
+  rf=rf.groupby('Date')['TDRETADJ'].mean()</code><br>
+<code>df['rf rate'] = rf/100
+dailyrf=df["rf rate"].dropna()
+a=dailyr-dailyrf
+  a=a.dropna()</code><br>
+
+<code>monthlyrf = df["rf rate"].resample('M').ffill()
+monthlyrf=monthlyrf.dropna()
+b=monthlyr-monthlyrf
+  b=b.dropna()</code><br>
+
+<code>yearlyrf = df["rf rate"].resample('Y').ffill()
+yearlyrf=yearlyrf.dropna()
+c=yearlyr-yearlyrf
+  c=c.dropna()</code><br>
+
+
+<code>fyearlyrf = df["rf rate"].resample('5Y').ffill()
+fyearlyrf=fyearlyrf.dropna()
+d=fyearlyr-fyearlyrf
+  d=d.dropna()</code><br>
 <h1>Reference</h1>
 <a href="https://wrds-www.wharton.upenn.edu">Wharton Research Data Services</a><br>
 <a href="https://finance.yahoo.com">Yahoo Finance</a>
