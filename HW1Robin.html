@@ -10,54 +10,65 @@ In addition, we want to compute the excess rate of return of SP500, namely, retu
 
 <h1>Full Body Text</h1>
 <ul>
-    <li>Welch's assignment blablabla...</li>
+    <li>I downloaded SP500 from Yahoo Finance in Daily Frequencies and used "Close" for all the computations, or we could download SP500 value-weighted return including dividends from wrds</li>
+    <li>The Panda function df["Close"].resample('').ffill().pct_change() allows me to compute returns in frequencies I wish</li>
+    <li>I downloaded Daily Series of Return Adjusted from wrds and used df["Close"].resample().ffill() to adjust frequencies</li>
+The lesson we learn from observing the annualized excess returns is the longer you put your money in SP500, the larger the returns are.
+  This is possibly because SP500 grows in a long-term whereas risk-free rate declines in a long-term. Therefore the differences between two are expanded in long time horizon.
 </ul>
 <h1>Tables and Figures</h1>
 <h3>Arithmetic Average Rate of Return</h3>
-<table style="width:100%">
+<table border="1" style="border-collapse: collapse; width: 100%; height: 100px;">
   <tr>
       <th>Frequency\Indices</th>
-    <th>SP500</th>
-    <th>Treasury Bills</th>
-    <th>Sp500 minus T Bills</th>
+    <th>SP500 Return</th>
+    <th>Treasury Bill Rate</th>
+    <th>Excess Return</th>
+    <th>Annualized Excess Return</th>
   </tr>
   <tr>
       <td>Daily</td>
     <td>0.0329%</td>
       <td>0.0299%</td>
       <td>0.003%</td>
+      <td>0.0816%</td>
   </tr>
   <tr>
       <td>Monthly</td>
     <td>0.6736%</td>
     <td>0.1044%</td>
     <td>0.5692%</td>
+    <td>6.8296%</td>
   </tr>
     <tr>
       <td>Yearly</td>
     <td>9.2045%</td>
     <td>0.0006%</td>
     <td>9.2039%</td>
+      <td>9.2039%</td>
   </tr>
     <tr>
       <td>5-Yearly</td>
     <td>50.8574%</td>
     <td>-0.1426%</td>
     <td>51%</td>
+      <td>10.2057%</td>
   </tr>
 </table>
 <h3>Geometric Average Rate of Return</h3>
-<table style="width:100%">
+<table border="1" style="border-collapse: collapse; width: 100%; height: 100px;">
   <tr>
       <th>Frequency\Indices</th>
-    <th>SP500</th>
-    <th>Treasury Bills</th>
-    <th>Sp500 minus T Bills</th>
+    <th>SP500 Return</th>
+    <th>Treasury Bill Rate</th>
+    <th>Excess Return</th>
+    <th>Annualized Excess Return</th>
   </tr>
   <tr>
       <td>Daily</td>
     <td>0.0269%</td>
     <td>0.0269%</td>
+    <td>0%</td>
     <td>0%</td>
   </tr>
   <tr>
@@ -65,18 +76,21 @@ In addition, we want to compute the excess rate of return of SP500, namely, retu
     <td>0.5734%</td>
     <td>0.1045%</td>
     <td>0.4689%</td>
+    <td>5.7747%</td>
   </tr>
     <tr>
       <td>Yearly</td>
     <td>7.7215%</td>
     <td>-0.0123%</td>
     <td>7.7338%</td>
+      <td>7.7338%</td>
   </tr>
     <tr>
       <td>5-Yearly</td>
     <td>40.3319%</td>
     <td>-0.232%</td>
     <td>40.5639%</td>
+      <td>7.0471%</td>
   </tr>
 </table>
 <h1>Reference</h1>
