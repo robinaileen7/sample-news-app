@@ -180,3 +180,41 @@ We are particularly interested in how they volatile 20 days before and after the
 <a href="https://www.investopedia.com/ask/answers/042915/what-difference-between-record-date-and-exdividend-date.asp">Investopedia</a>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head><h1>Homework3, by Robin Li, Feb 2nd, 2021</h1></head>
+<body>
+<h1>Executive Summary</h1>
+
+<p>HW 3 Annual Data Set</p>
+We would likely to work with large data set, for example, data manipulation across all SP500 companies' stock profiles. In this section of the project, I will create a dictionary consisting information we want.
+
+<h1>Full Body Text</h1>
+<ul>
+    <li>I uploaded a txt file of all SP500 companies' tickers to wrds CRSP - Stock Security File, and chose variables "Cusip", "Price", "Share Volume", "CRSP Permnant Company Number" to get the data</li>
+    <li>I computed the Market Capitalization by multiplying "Price" to "Share Volume" </li>
+    <li>I created a "dfDict" variable with all unique tickers, and use a loop to tell my original data frame to only generate variables that match that particular "Ticker"</li>
+<p>All companies' profiles are stored in the dictionary ; to access we just print(dfDict['TICKER']). For example, let us access Apple's profile from year end 2012 to 2019 and compute their yearly compounded returns and add to the existing profile</p>
+    We observe the return went from positive to negative from 2012 to 2014 and moved upward from 2018 to 2019. We can do this analysis to any companies we want in the dictionary.
+</ul>
+<h1>Python Codes</h1>
+<code>import pandas as pd</code><br>
+<code>import matplotlib.pyplot as plt</code><br>
+<code>df = pd.read_csv("HW3.csv",sep=',')</code><br>
+<code>df['Mkt_Cap'] = df['PRC']*df['VOL']</code><br>
+<code>UniqueTicker = df.TICKER.unique()</code><br>
+<code>dfDict = {elem : df for elem in UniqueTicker}</code><br>
+<code>for key in dfDict.keys():
+    dfDict[key] = df[:][df.TICKER == key]</code><br>
+<code>for key in dfDict.keys():
+    dfDict[key]['RoR'] = dfDict[key]['PRC'].resample('Y').ffill().pct_change()
+    dfDict[key] = dfDict[key].dropna()</code>
+<code>print(dfDict['AAPL'])</code><br>
+<code>_ = plt.plot(dfDict['AAPL']['yearlyr'])</code><br>
+<code>_ = plt.title(r'Apple Yearly Compounded Return', fontsize=15)</code><br/>
+<code>plt.show()</code><br>
+
+<h1>Reference</h1>
+<a href="https://wrds-www.wharton.upenn.edu">Wharton Research Data Services</a><br>
+</body>
+</html>
